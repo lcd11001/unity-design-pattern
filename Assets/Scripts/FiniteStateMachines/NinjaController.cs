@@ -21,11 +21,13 @@ public class NinjaController : MonoBehaviour
 
     private CharacterController characterController;
     private IInputController inputController;
+    private Animator anim;
 
     private void Start()
     {
         characterController = GetComponent<CharacterController>();
         inputController = GetComponent<IInputController>();
+        anim = GetComponentInChildren<Animator>();
     }
 
     private void Update()
@@ -89,20 +91,28 @@ public class NinjaController : MonoBehaviour
     private void Idle()
     {
         moveSpeed = 0;
+
+        anim.SetFloat("Speed", 0, 0.1f, Time.deltaTime);
     }
 
     private void Walk()
     {
         moveSpeed = walkSpeed;
+
+        anim.SetFloat("Speed", 0.5f, 0.1f, Time.deltaTime);
     }
 
     private void Crouch()
     {
         moveSpeed = crouchSpeed;
+
+        anim.SetFloat("Speed", 1.0f, 0.1f, Time.deltaTime);
     }
 
     private void Jump()
     {
         velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
+
+        anim.SetTrigger("Jump");
     }
 }
