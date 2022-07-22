@@ -12,8 +12,11 @@ public class Level : MonoBehaviour
     [SerializeField] int pointsPerLevel = 200;
     int experiencePoints = 0;
 
-    // Observer
+    // Observer using Unity
     [SerializeField] LevelUpEvent onLevelUp;
+
+    // Observer using C#
+    public event Action<int> onLevelUpAction;
 
     private void Start()
     {
@@ -43,6 +46,7 @@ public class Level : MonoBehaviour
             // GetComponent<Health>().ResetHealth();
             Debug.Log("raise LEVEL UP event");
             onLevelUp?.Invoke(newLevel);
+            onLevelUpAction?.Invoke(newLevel);
         }
     }
 

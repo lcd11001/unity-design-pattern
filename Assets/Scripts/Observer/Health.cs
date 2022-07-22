@@ -15,9 +15,27 @@ public class Health : MonoBehaviour
         StartCoroutine(SimulateHealthDrain());
     }
 
+    private void OnEnable()
+    {
+        var level = GetComponent<Level>();
+        if (level != null)
+        {
+            level.onLevelUpAction += OnLevelUpAction;
+        }
+    }
+
+    private void OnDisable()
+    {
+        var level = GetComponent<Level>();
+        if (level != null)
+        {
+            level.onLevelUpAction -= OnLevelUpAction;
+        }
+    }
+
     private IEnumerator SimulateHealthDrain()
     {
-        while(currentHealth > 0)
+        while (currentHealth > 0)
         {
             currentHealth -= drainPerSecond;
             yield return new WaitForSeconds(1);
@@ -39,6 +57,12 @@ public class Health : MonoBehaviour
         // MUST choose from dynamic section in inspector
         // https://forum.unity.com/threads/invoking-unityevent-with-argument.282670/
         Debug.Log($"received NEW LEVEL {newLevel}");
+        ResetHealth();
+    }
+
+    private void OnLevelUpAction(int newLevel)
+    {
+        Debug.Log($"received NEW LEVEL ACTION {newLevel}");
         ResetHealth();
     }
 }
