@@ -19,8 +19,8 @@ public class Level : MonoBehaviour
     public event Action<int> onLevelUpAction;
 
     // Observer using C# delegate
-    public delegate void LevelUpCallback1(int newLevel);
-    public event LevelUpCallback1 onLevelUpCallback;
+    public delegate void LevelUpCallback(int newLevel);
+    public event LevelUpCallback onLevelUpCallback;
 
     private void Start()
     {
