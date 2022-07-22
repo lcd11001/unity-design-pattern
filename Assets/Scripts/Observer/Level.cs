@@ -18,6 +18,10 @@ public class Level : MonoBehaviour
     // Observer using C#
     public event Action<int> onLevelUpAction;
 
+    // Observer using C# delegate
+    public delegate void LevelUpCallback1(int newLevel);
+    public event LevelUpCallback1 onLevelUpCallback;
+
     private void Start()
     {
         StartCoroutine("SimulateGainExperience");
@@ -47,6 +51,7 @@ public class Level : MonoBehaviour
             Debug.Log("raise LEVEL UP event");
             onLevelUp?.Invoke(newLevel);
             onLevelUpAction?.Invoke(newLevel);
+            onLevelUpCallback?.Invoke(newLevel);
         }
     }
 

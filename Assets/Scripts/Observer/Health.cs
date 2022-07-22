@@ -21,6 +21,7 @@ public class Health : MonoBehaviour
         if (level != null)
         {
             level.onLevelUpAction += OnLevelUpAction;
+            level.onLevelUpCallback += OnLevelUpCallback;
         }
     }
 
@@ -30,6 +31,7 @@ public class Health : MonoBehaviour
         if (level != null)
         {
             level.onLevelUpAction -= OnLevelUpAction;
+            level.onLevelUpCallback -= OnLevelUpCallback;
         }
     }
 
@@ -63,6 +65,12 @@ public class Health : MonoBehaviour
     private void OnLevelUpAction(int newLevel)
     {
         Debug.Log($"received NEW LEVEL ACTION {newLevel}");
+        ResetHealth();
+    }
+
+    private void OnLevelUpCallback(int newLevel)
+    {
+        Debug.Log($"received NEW LEVEL CALLBACK {newLevel}");
         ResetHealth();
     }
 }
