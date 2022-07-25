@@ -46,7 +46,7 @@ public class Health : MonoBehaviour
     {
         while (currentHealth > 0)
         {
-            currentHealth -= drainPerSecond;
+            currentHealth = Mathf.Max(0, currentHealth - drainPerSecond);
             onHealthChangedAction?.Invoke(currentHealth, fullHealth);
             yield return new WaitForSeconds(1);
         }
