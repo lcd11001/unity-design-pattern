@@ -5,10 +5,11 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [Serializable]
-public class LevelUpEvent: UnityEvent<int> {}
+public class LevelUpEvent : UnityEvent<int> { }
 
 public class Level : MonoBehaviour
 {
+    [SerializeField] bool simulateGainExperience;
     [SerializeField] int pointsPerLevel = 200;
     int experiencePoints = 0;
 
@@ -17,6 +18,7 @@ public class Level : MonoBehaviour
 
     // Observer using C#
     public event Action<int> onLevelUpAction;
+    public event Action<int> onExperienceUpAction;
 
     // Observer using C# delegate
     public delegate void LevelUpCallback(int newLevel);
@@ -24,7 +26,10 @@ public class Level : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine("SimulateGainExperience");
+        if (simulateGainExperience)
+        {
+            StartCoroutine(SimulateGainExperience());
+        }
     }
 
     IEnumerator SimulateGainExperience()
@@ -43,6 +48,7 @@ public class Level : MonoBehaviour
         int level = GetLevel();
 
         experiencePoints += points;
+        onExperienceUpAction?.Invoke(experiencePoints);
 
         int newLevel = GetLevel();
         if (newLevel > level)

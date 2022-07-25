@@ -2,17 +2,24 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Health : MonoBehaviour
 {
+    [SerializeField] bool simulateHealthDrain;
     [SerializeField] float fullHealth = 100f;
     [SerializeField] float drainPerSecond = 2f;
     float currentHealth = 0;
 
+    public event Action<float, float> onHealthChangedAction;
+
     void Awake()
     {
         ResetHealth();
-        StartCoroutine(SimulateHealthDrain());
+        if (simulateHealthDrain)
+        {
+            StartCoroutine(SimulateHealthDrain());
+        }
     }
 
     private void OnEnable()
@@ -40,6 +47,7 @@ public class Health : MonoBehaviour
         while (currentHealth > 0)
         {
             currentHealth -= drainPerSecond;
+            onHealthChangedAction?.Invoke(currentHealth, fullHealth);
             yield return new WaitForSeconds(1);
         }
     }
@@ -52,6 +60,7 @@ public class Health : MonoBehaviour
     public void ResetHealth()
     {
         currentHealth = fullHealth;
+        onHealthChangedAction?.Invoke(currentHealth, fullHealth);
     }
 
     public void OnLevelUp(int newLevel)

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -360,6 +360,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f04419feae064b489283c71aa4fa6eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulateGainExperience: 1
   pointsPerLevel: 200
   onLevelUp:
     m_PersistentCalls:
@@ -400,6 +401,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c63aac0649fd4541b5be24fcf64a72b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulateHealthDrain: 1
   fullHealth: 100
   drainPerSecond: 2
 --- !u!1 &1528437253
