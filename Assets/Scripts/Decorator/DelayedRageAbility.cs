@@ -12,7 +12,9 @@ public class DelayedRageAbility : BaseAbility
 
     IEnumerator Display(IAbilityContext context)
     {
-        TextMeshProUGUI txt = context.GetAbilityDisplay();
+        TextMeshProUGUI template = context.GetAbilityDisplay();
+        TextMeshProUGUI txt = Instantiate(template, template.transform.parent);
+        txt.name = "Rage (clone)";
         float timer = duration;
         while(timer > 0)
         {
@@ -21,6 +23,6 @@ public class DelayedRageAbility : BaseAbility
             yield return new WaitForEndOfFrame();
         }
 
-        txt.text = "";
+        Destroy(txt.gameObject);
     }
 }

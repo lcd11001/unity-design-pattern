@@ -13,7 +13,9 @@ public class DelayedFireBallAbility : BaseAbility
 
     IEnumerator Display(IAbilityContext context)
     {
-        TextMeshProUGUI txt = context.GetAbilityDisplay();
+        TextMeshProUGUI template = context.GetAbilityDisplay();
+        TextMeshProUGUI txt = Instantiate(template, template.transform.parent);
+        txt.name = "Fireball (clone)";
         float timer = duration;
         while(timer > 0)
         {
@@ -22,6 +24,6 @@ public class DelayedFireBallAbility : BaseAbility
             yield return new WaitForEndOfFrame();
         }
 
-        txt.text = "";
+        Destroy(txt.gameObject);
     }
 }

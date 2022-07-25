@@ -13,7 +13,9 @@ public class DelayedHealAbility : BaseAbility
 
     IEnumerator Display(IAbilityContext context)
     {
-        TextMeshProUGUI txt = context.GetAbilityDisplay();
+        TextMeshProUGUI template = context.GetAbilityDisplay();
+        TextMeshProUGUI txt = Instantiate(template, template.transform.parent);
+        txt.name = "Heal (clone)";
         float timer = duration;
         while(timer > 0)
         {
@@ -22,6 +24,6 @@ public class DelayedHealAbility : BaseAbility
             yield return new WaitForEndOfFrame();
         }
 
-        txt.text = "";
+        Destroy(txt.gameObject);
     }
 }
