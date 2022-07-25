@@ -19,7 +19,7 @@ public class AbilityRunner : MonoBehaviour, IAbilityContext
 
     public void ChangeAbility<T>() where T : IAbility
     {
-        currentAbility = GetComponent<T>();
+        currentAbility = Activator.CreateInstance<T>();
 
         UseAbility();
     }
